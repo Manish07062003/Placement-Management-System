@@ -1,0 +1,188 @@
+<% layout("layout/boilerplate.ejs") %>
+    <div class="col-md-8 m-auto mb-5">
+        <h2 style="margin-bottom: 4rem; font-size: 2.2rem;" class="text-secondary">New Job Description</h2>
+        <form action="/jd" method="POST" class="was-validated">
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label class="form-label " for="company">Company:</label>
+                    <input class="form-control" type="text" id="company" name="company" required>
+                    <div class=" invalid-feedback">
+                        Enter Company Name
+                    </div>
+                </div>
+                <label class="form-label" for="position_name">Position Name:</label>
+                <input class="form-control" type="text" id="position_name" name="position_name" required>
+                <div class=" invalid-feedback">
+                    Enter Position Name
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="experience" class="form-label">Experience:</label>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="experience_switch">
+                    <label class="form-check-label" for="experience_switch">Range</label>
+                </div>
+                <div id="experience_range_div" style="display: none;">
+                    <div class="mb-3 d-flex">
+                        <input class="form-control" type="number" placeholder="From" id="experience_from"
+                            name="experience[from]" min="0" max="100">
+                        <input class="form-control" type="number" placeholder="To" id="experience_to"
+                            name="experience[to]" min="0" max="100">
+                        <label for="experience" class="form-label" style="margin:0.5rem;">Years</label>
+                    </div>
+                </div>
+                <div id="experience_single_div">
+                    <input class="form-control" type="number" id="experience" name="experience[single]"
+                        placeholder="Year/s" min="0" max="100">
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="current_location">Location:</label>
+                <input class="form-control" type="text" id="current_location" name="current_location" required>
+                <div class=" invalid-feedback">
+                    Enter Location
+                </div>
+            </div>
+            <div class=" mb-3 mt-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Description:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"
+                    required></textarea>
+                <div class=" invalid-feedback">
+                    Enter Job Description
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="annual_salary">Annual Salary:</label>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="salary_switch">
+                    <label class="form-check-label" for="salary_switch">Range</label>
+                </div>
+                <div id="salary_range_div" style="display: none;">
+                    <div class="mb-3 d-flex">
+                        <input class="form-control" type="number" placeholder="From" id="salary_from"
+                            name="salary[from]" min="0">
+                        <input class="form-control" type="number" placeholder="To" id="salary_to" name="salary[to]"
+                            min="0">
+                        <label for="salary" class="form-label" style="margin:0.5rem;">Lacs</label>
+                    </div>
+                </div>
+                <div id="salary_single_div">
+                    <input class="form-control" type="number" id="salary" name="salary[single]" placeholder="lac/s">
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="Course">Course:</label>
+                <input class="form-control" type="text" id="course" name="course" >
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="designation">Designation:</label>
+                <input class="form-control" type="text" id="designation" name="designation">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="job_type">Job Type:</label>
+                <select id="job_type" name="job_type" class="form-select" aria-label="Default select example" required>
+                    <option selected value="">Select Type of Job</option>
+                    <option value="internship">Internship</option>
+                    <option value="full_time">Full Time</option>
+                    <option value="internship_full_time">Internship and Full Time</option>
+                </select>
+                <div class=" invalid-feedback">
+                    Select Job Type
+                </div>
+            </div>
+            <div class=" mb-3">
+                <label class="form-label" for="tenth">10th Percentage</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="tenth-label">%</span>
+                    <input type="number" class="form-control" id="tenth" min="0" max="100" placeholder="Min Percentage"
+                        aria-label="percentage" aria-describedby="tenth-label" name="tenth">
+                </div>
+            </div>
+            <div class=" mb-3">
+                <label class="form-label" for="twelve">12th Percentage</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="twelve-label">%</span>
+                    <input type="number" class="form-control" id="twelve" min="0" max="100" placeholder="Min Percentage"
+                        aria-label="percentage" aria-describedby="twelve-label" name="twelve">
+                </div>
+            </div>
+            <div class=" mb-3">
+                <label class="form-label" for="graduation">Graduation Percentage</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="graduation-label">%</span>
+                    <input type="number" class="form-control" id="graduation" min="0" max="100"
+                        placeholder="Min Percentage" aria-label="percentage" aria-describedby="graduation-label"
+                        name="graduation">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="masters">Masters Percentage</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="masters-label">%</span>
+                    <input type="number" class="form-control" id="masters" min="0" max="100"
+                        placeholder="Min Percentage" aria-label="percentage" aria-describedby="masters-label"
+                        name="masters">
+                </div>
+            </div>
+            <label class="form-label" for="gender">Gender:</label>
+            <div class="mb-3 d-flex justify-content-between col-7">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="all_candidates"
+                        checked>
+                    <label class="form-check-label" for="gender1">
+                        All Candidates
+                    </label>
+                </div>
+                <div class="form-check ">
+                    <input class=" form-check-input" type="radio" name="gender" id="gender2" value="male">
+                    <label class="form-check-label" for="gender2">
+                        Male
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="gender3" value="female">
+                    <label class="form-check-label" for="gender3">
+                        Female
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="candidate_category">Candidate Category:</label>
+                <input class="form-control" type="text" id="candidate_category" name="candidate_category">
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="age">Candidate Age:</label>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="age_switch">
+                    <label class="form-check-label" for="age_switch">Range</label>
+                </div>
+                <div id="age_range_div" style="display: none;">
+                    <div class="mb-3 d-flex">
+                        <input class="form-control" type="number" placeholder="From" id="age_from"
+                            name="candidate_age[from]" min="0" max="100">
+                        <input class="form-control" type="number" placeholder="To" id="age_to" name="candidate_age[to]"
+                            min="0" max="100">
+                        <label for="age" class="form-label" style="margin:0.5rem;">Years</label>
+                    </div>
+                </div>
+                <div id="age_single_div">
+                    <input class="form-control" type="number" id="age" name="candidate_age[single]" placeholder="Year/s"
+                        min="0" max="100">
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="candidate_skills">Candidate Skills:</label>
+                <input class="form-control" type="text" id="candidate_skills" name="candidate_skills" required>
+                <div class="invalid-feedback">
+                    Enter Skills Required
+                </div>
+            </div>
+
+            <button class="btn btn-outline-success">Add</button>
+        </form>
+    </div>

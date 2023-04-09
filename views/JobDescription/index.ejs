@@ -1,0 +1,59 @@
+<% layout("layout/boilerplate.ejs") %>
+    <!-- <h1 class="text-center">Jobs</h1> -->
+    <div class="col-md-9 m-auto">
+        <% for(let jd of jds){ %>
+            <div class="card mb-5">
+                <h5 class="card-header ">
+                    <%= jd.company %>
+                </h5>
+                <div class="card-body">
+                    <h5 class="card-title mb-4">
+                        <%= jd.position_name %>
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-3 d-flex align-items-center mb-1">
+                            <img src="/images/experience.png" alt="no image found" width="15" height="15" class="me-2">
+                            <p class="card-text text-muted ">
+                                <% if(!jd.experience.from && !jd.experience.to && !jd.experience.single) {%>
+                                    Not Disclosed
+                                    <% }else if(!jd.experience.single){ %>
+                                        <%= jd.experience.from %>-<%= jd.experience.to %>
+                                                <% } else{%>
+                                                    <%= jd.experience.single %>
+                                                        <% } %> yrs
+                            </p>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center mb-1">
+                            <img src="/images/rupee.png" alt="no image found" width="15" height="15" class="me-2">
+                            <p class="card-text text-muted ">
+                                <% if(!jd.salary.from && !jd.salary.to && !jd.salary.single) {%>
+                                    Not Disclosed
+                                    <% }else if(!jd.salary.single){ %>
+                                        <%= jd.salary.from %>-<%= jd.salary.to %>
+                                                <% } else{%>
+                                                    <%= jd.salary.single %>
+                                                        <% } %> lpa
+                            </p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mb-1">
+                            <img src="/images/location.png" alt="no image found" width="15" height="15" class="me-2">
+                            <p class="card-text text-muted ">
+                                <%= jd.current_location %>
+                            </p>
+                        </div>
+                        <div class="col-md d-flex align-items-center mb-1 mt-2">
+                            <img src="/images/skill.png" alt="no image found" width="20" height="20" class="me-2">
+                            <p class="card-text text-muted d-flex justify-content-sm-start align-items-center flex-wrap" style="gap: 1rem;">
+                                <% const skills=functions.replaceAndCapitalize(jd.candidate_skills).split(" ")
+                                for(let skill of skills){
+                                %>
+                                <span ><%= skill %></span>
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+                    <a href=" /jd/<%=jd.id %>" class="btn btn-primary">View Job</a>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>

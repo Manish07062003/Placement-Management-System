@@ -1,0 +1,144 @@
+<% layout("layout/boilerplate.ejs") %>
+    <div class="container-fluid mb-5">
+        <div class="card" style="width:100%;">
+            <div class="card-body ">
+                <h2 class="card-title text-center">
+                    <%= jd.company %>
+                </h2>
+                <h3 class="card-title mb-3">
+                    <%= jd.position_name %>
+                </h3>
+                <h6 class="card-subtitle mb-3 text-body-secondary text-muted "><img src="/images/experience.png" alt=""
+                        width="20" height="20" class="me-3">
+                    <% if(!jd.experience.from && !jd.experience.to && !jd.experience.single){ %>
+                        Not Disclosed
+                        <%}else if(!jd.experience.single){ %>
+                            <%= jd.experience.from %> -
+                                <%= jd.experience.to %>
+                                    <% }else{ %>
+                                        <%= jd.experience.single %>
+                                            <% } %>
+                                                yrs
+                </h6>
+                <h6 class="card-subtitle mb-3 text-body-secondary text-muted"><img src="/images/rupee.png" alt=""
+                        width="20" height="20" class="me-3">
+                    <% if(!jd.salary.from && !jd.salary.to && !jd.salary.single) {%>
+                        Not Disclosed
+                        <% }else if(!jd.salary.single){ %>
+                            <%= jd.salary.from %> -
+                                <%= jd.salary.to %>
+                                    <% }else{%>
+                                        <%= jd.salary.single %>
+                                            <% } %>
+                                                lpa
+                </h6>
+                <h6 class=" card-subtitle mb-3 text-body-secondary text-muted mb-3"><img src="/images/location.png"
+                        alt="" width="20" height="20" class="me-3">
+                    <%= jd.current_location %>
+                </h6>
+
+                <p class=" card-text mb-3 mt-5 ">
+                    <span class=" text-muted d-block">Job Description</span>
+                    <%= jd.description %>
+                </p>
+                <h6 class="card-subtitle mb-4 text-body-secondary mt-5 "><span
+                        class="text-muted  d-block mb-2">Course</span>
+                    <div class="d-flex justify-content-sm-start align-items-center flex-wrap" style="gap: 1rem;">
+                        <% if(jd.course){ const courses=functions.replaceAndCapitalize(jd.course).split(" ");
+                         for(let course of courses){ %>
+                            <button type=" button" class="btn btn-outline-secondary btn-sm" disabled
+                            style="border-radius: 1.2rem;">
+                            <%= course.toUpperCase() %></button>
+                                <% }%>
+                                    <% }else{ %>
+                                        All Course Students Can Apply
+                                        <% } %>
+                    </div>
+                </h6>
+                <h6 class=" card-subtitle mb-3 text-body-secondary ">
+                    <span class=" text-muted ">Employment Type</span>
+                    <%= functions.replaceAndCapitalize(jd.job_type)%>
+                </h6>
+                <h6 class=" card-subtitle mb-3 text-body-secondary">
+                    <span class="text-muted ">Gender</span>
+                    <%=functions.replaceAndCapitalize(jd.gender)%>
+                </h6>
+                <% if(jd.candidate_age.single || (jd.candidate_age.from && jd.candidate_age.to)){ %>
+                    <h6 class="card-subtitle mb-3 text-body-secondary">
+                        <span class="text-muted ">Age</span>
+                        <% if(!jd.candidate_age.single){ %>
+                            <%= jd.candidate_age.from%>-<%= jd.candidate_age.to%>
+                                    <% }else{ %>
+                                        <%= jd.candidate_age.single %>
+                                            <% } %>
+                                                yrs
+                    </h6>
+                    <% } %>
+                        <% if(jd.tenth || jd.twelve || jd.masters || jd.graduation){ %>
+                            <h6 class="card-subtitle mb-3 mt-4 text-body-secondary  ">
+                                <span class=" text-muted d-block ">Education</span>
+                            </h6>
+                            <div class="d-flex justify-content-sm-start flex-wrap align-items-center mb-4 " style="gap: 1.4rem;">
+                                <% if(jd.tenth){ %>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary d-inline-block"><span
+                                            class="text-muted me-2">10th</span>
+                                        <%= jd.tenth%>%
+                                    </h6>
+                                    <% } %>
+                                        <% if(jd.twelve){ %>
+                                            <h6 class="card-subtitle mb-2 text-body-secondary d-inline-block"><span
+                                                    class="text-muted me-2">12th</span>
+                                                <%= jd.twelve%>%
+                                            </h6>
+                                            <% } %>
+                                                <% if(jd.graduation){ %>
+                                                    <h6 class="card-subtitle mb-2 text-body-secondary d-inline-block">
+                                                        <span class="text-muted me-2 ">Graduation</span>
+                                                        <%= jd.graduation%>%
+                                                    </h6>
+                                                    <% } %>
+                                                        <% if(jd.masters){ %>
+                                                            <h6
+                                                                class="card-subtitle mb-2 text-body-secondary d-inline-block ">
+                                                                <span class="text-muted me-2 ">Masters</span>
+                                                                <%= jd.masters%>%
+                                                            </h6>
+                                                            <% } %>
+                            </div>
+                            <% } %>
+                                <% if(jd.candidate_category){ %>
+                                    <h6 class="card-subtitle mb-3 text-body-secondary "><span
+                                            class="text-muted ">Category</span>
+                                        <%= functions.replaceAndCapitalize(jd.candidate_category)%>
+                                    </h6>
+                                    <% } %>
+                                        <% if(jd.designation){ %>
+                                            <h6 class="card-subtitle mb-3 text-body-secondary "><span
+                                                    class="text-muted ">Designation</span>
+                                                <%= functions.replaceAndCapitalize(jd.designation)%>
+                                            </h6>
+                                            <% } %>
+                                                <h6 class="card-subtitle  mt-4 mb-3 text-body-secondary mb-5"><span
+                                                        class="text-muted d-block mb-2">Skills</span>
+                                                    <div class="d-flex justify-content-sm-start align-items-center flex-wrap"
+                                                        style="gap: 1rem;">
+                                                        <% const
+                                                            skills=functions.replaceAndCapitalize(jd.candidate_skills).split(" ")
+                                                    for(let skill of skills){
+                                                    %>
+                                                        <button type=" button" class="btn btn-outline-secondary"
+                                                            disabled style="border-radius: 1.2rem;">
+                                                            <%=skill%></button>
+                                                                <% }%>
+                                                    </div>
+                                                </h6>
+                                                <a href="/jd/<%= jd.id %>/edit" style="text-decoration:none;"> <button
+                                                        class="btn btn-info btn-sm card-link">EDIT</button></a>
+                                                <form action="/jd/<%= jd.id %>?_method=DELETE" method="POST"
+                                                    style="display:inline;">
+                                                    <button class="btn btn-danger btn-sm card-link">DELETE</button>
+                                                </form>
+            </div>
+        </div>
+
+    </div>
