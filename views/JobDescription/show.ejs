@@ -78,7 +78,8 @@
                             <h6 class="card-subtitle mb-3 mt-4 text-body-secondary  ">
                                 <span class=" text-muted d-block ">Education</span>
                             </h6>
-                            <div class="d-flex justify-content-sm-start flex-wrap align-items-center mb-4 " style="gap: 1.4rem;">
+                            <div class="d-flex justify-content-sm-start flex-wrap align-items-center mb-4 "
+                                style="gap: 1.4rem;">
                                 <% if(jd.tenth){ %>
                                     <h6 class="card-subtitle mb-2 text-body-secondary d-inline-block"><span
                                             class="text-muted me-2">10th</span>
@@ -128,8 +129,9 @@
                                                     %>
                                                         <button type=" button" class="btn btn-outline-secondary"
                                                             disabled style="border-radius: 1.2rem;">
-                                                            <%=skill%></button>
-                                                                <% }%>
+                                                            <%= skill %> </button>
+                                                                <% } %>
+
                                                     </div>
                                                 </h6>
                                                 <a href="/jd/<%= jd.id %>/edit" style="text-decoration:none;"> <button

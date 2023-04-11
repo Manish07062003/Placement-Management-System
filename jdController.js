@@ -7,10 +7,10 @@ class jdController {
     async addJd(jobDescription) {
         const jd = new JobDescription(jobDescription);
         await jd.save();
+        return jd;
     }
     async getJdById(id) {
-        const jd = await JobDescription.findById(id);
-        return jd;
+        return await JobDescription.findById(id);
     }
     async findJdAndUpdate(id, data) {
         const jd = await JobDescription.findByIdAndUpdate(id, data);

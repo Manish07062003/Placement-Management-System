@@ -5,17 +5,21 @@ const functions = require("./functions")
 const method_override = require("method-override");
 const path = require("path");
 const mongoose = require("mongoose");
-const { jdSchema } = require("./joiSchemas")
-const jdcontroller = require("./jdcontroller");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError")
+const session = require("express-session")
+const flash = require("connect-flash")
+
+const jobDescriptions = require("./routes/jobDescriptions.js")
+
 
 mongoose.connect("mongodb://localhost:27017/placement_management_system", {
 
     // parses the data from the project and returns back in json format
-    usenewurlparser: true,
+    useNewUrlParser: true,
 
-    useunifiedtopology: true,
+    useUnifiedTopology: true,
+
 });
 
 const db = mongoose.connection;
@@ -27,16 +31,6 @@ db.once("open", () => {
 app.locals.functions = functions;
 
 
-const validateJd = (req, res, next) => {
-    console.log(req.body)
-    const { error } = jdSchema.validate(req.body)
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
 
 // set view engine to ejs
 app.set("view engine", 'ejs');
@@ -50,46 +44,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 // enabling method-override
 app.use(method_override('_method'));
 
-// to display all jd's
-app.get("/jd", catchAsync(async (req, res) => {
-    const jds = await jdcontroller.getJds();
-    res.render("jobdescription/index", { jds });
-}))
+// session
+const sessionConfig = {
+    secret: "thisshouldbeabettersecret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        // for security purposes
+        // if this is enables any client side script cannot access this cookie
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}
+app.use(session(sessionConfig))
 
-// to create new jd
-app.get("/jd/new", (req, res) => {
-    res.render("jobdescription/new");
+
+// enabling flash
+app.use(flash())
+
+
+app.use((req, res, next) => {
+    // we can access success in templates without passing 
+    res.locals.success = req.flash("success")
+    res.locals.error= req.flash("error")
+    res.locals.functions = functions;
+    next()
 })
 
-// to submit new jd to database
-app.post("/jd", validateJd, catchAsync(async (req, res) => {
-    jdcontroller.addJd(req.body);
-    res.redirect("/jd");
-}))
-// to display selected jd
-app.get("/jd/:id", catchAsync(async (req, res) => {
-    const jd = await jdcontroller.getJdById(req.params.id);
-    res.render("jobdescription/show", { jd});
-}))
-
-// to edit a particular jd
-app.get("/jd/:id/edit", catchAsync(async (req, res) => {
-    const jd = await jdcontroller.getJdById(req.params.id);
-    res.render("jobdescription/edit", { jd });
-}))
-
-// to save the updated jd to db
-app.put("/jd/:id", validateJd, catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const jd = await jdcontroller.findJdAndUpdate(id, { ...req.body });
-    res.redirect(`/jd/${jd.id}`);
-}))
-// delete a jd
-app.delete("/jd/:id", catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await jdcontroller.findJdAndDelete(id);
-    res.redirect('/jd');
-}))
+// handling routes starting with /jd and sending to routes/jobDescriptions
+app.use('/jd', jobDescriptions);
 
 
 app.get("/register", (req, res) => {
