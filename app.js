@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const ejs_mate = require("ejs-mate");
@@ -5,12 +9,19 @@ const functions = require("./functions")
 const method_override = require("method-override");
 const path = require("path");
 const mongoose = require("mongoose");
-const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError")
 const session = require("express-session")
 const flash = require("connect-flash")
+const User = require("./models/user.js")
 
-const jobDescriptions = require("./routes/jobDescriptions.js")
+// passport
+const passport = require("passport");
+const LocalStrategy = require("passport-local")
+
+const JobDescriptionsRoute = require("./routes/jobDescriptions.js");
+const UserRoute = require("./routes/user.js");
+const ApplyJdAndDownloadStdRoute = require("./routes/applyJdAndDownloadStd.js");
+
 
 
 mongoose.connect("mongodb://localhost:27017/placement_management_system", {
@@ -43,45 +54,59 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 // enabling method-override
 app.use(method_override('_method'));
-
 // session
 const sessionConfig = {
-    secret: "thisshouldbeabettersecret",
+    secret: "MySecret",
     resave: false,
     saveUninitialized: true,
     cookie: {
         // for security purposes
-        // if this is enables any client side script cannot access this cookie
+        // if this is enabled any client side script cannot access this cookie
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24,
         maxAge: 1000 * 60 * 60 * 24
     }
 }
+
 app.use(session(sessionConfig))
 
 
 // enabling flash
 app.use(flash())
 
+// passport
+app.use(passport.initialize())
+app.use(passport.session())
+
+// to check the username and password from the database
+passport.use(new LocalStrategy(User.authenticate()))
+// serializeUser() is setting id as cookie in user's browser and passport.
+passport.serializeUser(User.serializeUser())
+//  deserializeUser() is getting id from the cookie, which is then used in callback to get user info or something else, based on that id or some other piece of information from the cookie
+passport.deserializeUser(User.deserializeUser())
+
 
 app.use((req, res, next) => {
     // we can access success in templates without passing 
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash("success")
-    res.locals.error= req.flash("error")
+    res.locals.error = req.flash("error")
     res.locals.functions = functions;
     next()
 })
 
+app.use('/', UserRoute);
+
 // handling routes starting with /jd and sending to routes/jobDescriptions
-app.use('/jd', jobDescriptions);
+app.use('/jd', JobDescriptionsRoute);
+
+app.use('/jd', ApplyJdAndDownloadStdRoute);
 
 
-app.get("/register", (req, res) => {
-    res.render("user/register");
-});
-app.post('/register', (req, res) => {
-    res.redirect('/register');
-})
+
+
+
+
 
 // runs atlast if the path doesn't match for above all routes
 app.all("*", (req, res, next) => {

@@ -80,7 +80,14 @@ const jobDescriptionSchema = new Schema({
     },
     candidate_skills: {
         type: String
-    }
+    },
+    applied_students: [
+        {
+            type: Schema.Types.ObjectId,
+            // Review Model
+            ref: 'User'
+        }
+    ]
 });
 
 module.exports = mongoose.model("JobDescription", jobDescriptionSchema);

@@ -10,8 +10,8 @@ module.exports.jdSchema = Joi.object({
     current_location: Joi.string().required(),
     description: Joi.string().required(),
     salary: Joi.object({
-        from: Joi.number().required().min(1).allow(''),
-        to: Joi.number().required().min(1).allow(''),
+        from: Joi.number().required().min(0).allow(''),
+        to: Joi.number().required().min(0).allow(''),
         single: Joi.number().required().min(1).allow('')
     }),
     course: Joi.string().required().allow(''),

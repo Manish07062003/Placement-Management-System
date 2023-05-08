@@ -75,6 +75,12 @@ document.querySelector("#age_switch").addEventListener("change", function () {
 })
 
 
-document.querySelector("#company").addEventListener("onkeypress", function () {
-    document.querySelector("#company").classList.add = "form-error";
-})
+function check_password() {
+    if (document.querySelector("#password").value !== document.querySelector("#confirm_password").value) {
+        document.querySelector("#password_match_div").innerText = "Password Did Not Match";
+        document.querySelector("#password_match_div").classList.add = "invalid-feedback";
+    } else {
+        document.querySelector("#password_match_div").innerText = "";
+        document.querySelector.classList.add = "valid-feedback";
+    }
+}

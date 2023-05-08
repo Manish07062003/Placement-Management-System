@@ -19,21 +19,21 @@
             <div class="mb-3">
                 <label for="experience" class="form-label">Experience:</label>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" role="switch" id="experience_switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="experience_switch" >
                     <label class="form-check-label" for="experience_switch">Range</label>
                 </div>
                 <div id="experience_range_div" style="display: none;">
                     <div class="mb-3 d-flex">
                         <input class="form-control" type="number" placeholder="From" id="experience_from"
-                            name="experience[from]" min="0" max="100">
+                            name="experience[from]" min="0" max="100" step="any">
                         <input class="form-control" type="number" placeholder="To" id="experience_to"
-                            name="experience[to]" min="0" max="100">
+                            name="experience[to]" min="0" max="100" step="any">
                         <label for="experience" class="form-label" style="margin:0.5rem;">Years</label>
                     </div>
                 </div>
                 <div id="experience_single_div">
                     <input class="form-control" type="number" id="experience" name="experience[single]"
-                        placeholder="Year/s" min="0" max="100">
+                        placeholder="Year/s" min="0" max="100" step="any">
 
                 </div>
             </div>
@@ -61,20 +61,20 @@
                 <div id="salary_range_div" style="display: none;">
                     <div class="mb-3 d-flex">
                         <input class="form-control" type="number" placeholder="From" id="salary_from"
-                            name="salary[from]" min="0">
+                            name="salary[from]" min="1" step="any">
                         <input class="form-control" type="number" placeholder="To" id="salary_to" name="salary[to]"
-                            min="0">
+                            min="1" step="any">
                         <label for="salary" class="form-label" style="margin:0.5rem;">Lacs</label>
                     </div>
                 </div>
                 <div id="salary_single_div">
-                    <input class="form-control" type="number" id="salary" name="salary[single]" placeholder="lac/s">
+                    <input class="form-control" type="number" id="salary" name="salary[single]" placeholder="lac/s" step="any">
 
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Course">Course:</label>
-                <input class="form-control" type="text" id="course" name="course" >
+                <input class="form-control" type="text" id="course" name="course">
 
             </div>
             <div class="mb-3">

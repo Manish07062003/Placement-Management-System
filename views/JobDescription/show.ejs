@@ -15,10 +15,11 @@
                         <%}else if(!jd.experience.single){ %>
                             <%= jd.experience.from %> -
                                 <%= jd.experience.to %>
+                                    yrs
                                     <% }else{ %>
                                         <%= jd.experience.single %>
+                                            yrs
                                             <% } %>
-                                                yrs
                 </h6>
                 <h6 class="card-subtitle mb-3 text-body-secondary text-muted"><img src="/images/rupee.png" alt=""
                         width="20" height="20" class="me-3">
@@ -27,10 +28,11 @@
                         <% }else if(!jd.salary.single){ %>
                             <%= jd.salary.from %> -
                                 <%= jd.salary.to %>
+                                    lpa
                                     <% }else{%>
                                         <%= jd.salary.single %>
+                                            lpa
                                             <% } %>
-                                                lpa
                 </h6>
                 <h6 class=" card-subtitle mb-3 text-body-secondary text-muted mb-3"><img src="/images/location.png"
                         alt="" width="20" height="20" class="me-3">
@@ -134,12 +136,42 @@
 
                                                     </div>
                                                 </h6>
-                                                <a href="/jd/<%= jd.id %>/edit" style="text-decoration:none;"> <button
-                                                        class="btn btn-info btn-sm card-link">EDIT</button></a>
-                                                <form action="/jd/<%= jd.id %>?_method=DELETE" method="POST"
-                                                    style="display:inline;">
-                                                    <button class="btn btn-danger btn-sm card-link">DELETE</button>
-                                                </form>
+                                                <% if(currentUser && currentUser.isAdmin){ %>
+                                                    <a href="/jd/<%= jd.id %>/edit" style="text-decoration:none;">
+                                                        <button class="btn btn-info btn-sm card-link">EDIT</button></a>
+                                                    <form action="/jd/<%= jd.id %>?_method=DELETE" method="POST"
+                                                        style="display:inline;">
+                                                        <button class="btn btn-danger btn-sm card-link">DELETE</button>
+                                                    </form>
+                                                    <a href="/jd/<%= jd.id %>/AppliedStudents"
+                                                        style="text-decoration:none;">
+                                                        <button class="btn btn-warning btn-sm card-link">
+                                                            Applied
+                                                            Student Details</button></a>
+                                                    <% }else if(currentUser){ %>
+                                                        <% if(!isApplied) { %>
+                                                            <form action="/jd/<%= jd.id %>/apply" method="post">
+                                                                <button class="btn btn-warning btn-sm card-link">Apply
+                                                                    For
+                                                                    Job</button>
+                                                                <% }else{ %>
+                                                                    <form action="/jd/<%= jd.id %>/cancelApply?_method=PUT"
+                                                                        method="post">
+                                                                        <button
+                                                                            class="btn btn-warning btn-sm card-link">Cancel Apply
+                                                                            For
+                                                                            Job</button>
+                                                                        <%}%>
+                                                                    </form>
+                                                                    <% }else{ %>
+                                                                        <form action="/jd/<%= jd.id %>/apply"
+                                                                            method="post">
+                                                                            <button
+                                                                                class="btn btn-warning btn-sm card-link">Login
+                                                                                To Apply
+                                                                            </button>
+                                                                        </form>
+                                                                        <% } %>
             </div>
         </div>
 

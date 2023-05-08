@@ -1,120 +1,153 @@
 <% layout("layout/boilerplate.ejs") %>
 
     <div class="col-md-8 m-auto mb-5">
+        <!-- to send file to the server we set encoding type to multipart/form-data -->
         <h1 class="mb-5">Find a job & grow your career</h1>
-        <form action="#" method="POST" class="needs-validation" novalidate>
+        <form action="/register" method="POST" class="was-validated"
+            oninput='confirm_password.setCustomValidity(confirm_password.value != password.value ? "Passwords do not match." : ""); '
+            enctype="multipart/form-data">
             <div class="mb-3">
-                <label class="form-label" for="register_id">Registration ID:</label>
-                <input class="form-control" type="text" id="register_id" name="student[register_id]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <label class="form-label" for="username">Username:</label>
+                <input class="form-control" type="text" id="username" name="username" required
+                    placeholder="Univeristy Registration ID">
+                <div class=" invalid-feedback">
+                    Enter Registration Number
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="name">Name:</label>
-                <input class="form-control" type="text" id="name" name="student[name]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <input class="form-control" type="text" id="name" name="name" required>
+                <div class=" invalid-feedback">
+                    Enter Name
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="phone_no">Phone No:</label>
-                <input class="form-control" type="text" id="phone_no" name="student[phone_no]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <input class="form-control" type="number" min="1000000000" max="9999999999" id="phone_no"
+                    name="phone_no" required>
+                <div class=" invalid-feedback">
+                    Enter Phone Number
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="email">Email:</label>
-                <input class="form-control" type="email" id="email" name="student[email]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <input class="form-control" type="email" id="email" name="email" required>
+                <div class=" invalid-feedback">
+                    Enter Email
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="password">Password:</label>
-                <input class="form-control" type="password" id="password" name="student[password]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <input class="form-control" type="password" id="password" name="password" required>
+                <div class=" invalid-feedback">
+                    Enter Password
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="confirm_password">Confirm Password:</label>
+                <input class="form-control" type="password" id="confirm_password" required>
+                <div class="invalid-feedback">
+                    Password Doesn't Match
                 </div>
             </div>
             <label class="form-label" for="gender">Gender:</label>
             <div class="mb-3 d-flex justify-content-between col-5">
                 <div class="form-check ">
-                    <input class=" form-check-input" type="radio" name="student[gender]" id="gender2" value="male">
-                    <label class="form-check-label" for="gender2">
+                    <input class=" form-check-input" type="radio" name="gender" id="gender1" value="male" required>
+                    <label class="form-check-label" for="gender1">
                         Male
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="student[gender]" id="gender3" value="female">
-                    <label class="form-check-label" for="gender3">
+                    <input class="form-check-input" type="radio" name="gender" id="gender2" value="female" required>
+                    <label class="form-check-label" for="gender2">
                         Female
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="gender3" value="others" required>
+                    <label class="form-check-label" for="gender3">
+                        Others
                     </label>
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="department">Department:</label>
-                <input class="form-control" type="text" id="department" name="student[department]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <label class="form-label" for="course">Course:</label>
+                <input class="form-control" type="text" id="course" name="course" required>
+                <div class=" invalid-feedback">
+                    Enter Course
                 </div>
             </div>
             <div class=" mb-3">
-                <label class="form-label" for="10th">10th Percentage</label>
+                <label class="form-label" for="tenth">10th Percentage</label>
                 <div class="input-group">
-                    <span class="input-group-text" id="10th-label">%</span>
-                    <input type="number" class="form-control" id="10th" min="0" max="100" placeholder="0.00"
-                        aria-label="percentage" aria-describedby="10th-label" name="student[10th]" required>
+                    <span class="input-group-text" id="tenth-label">%</span>
+                    <input type="number" class="form-control" id="tenth" min="1" max="100" placeholder="0.00"
+                        aria-label="percentage" aria-describedby="tenth-label" name="tenth" required step="any">
+                    <div class=" invalid-feedback">
+                        Enter 10th Percentage
+                    </div>
                 </div>
             </div>
             <div class=" mb-3">
-                <label class="form-label" for="12th">12th Percentage</label>
+                <label class="form-label" for="twelve">12th Percentage</label>
                 <div class="input-group">
-                    <span class="input-group-text" id="12th-label">%</span>
-                    <input type="number" class="form-control" id="12th" min="0" max="100" placeholder="0.00"
-                        aria-label="percentage" aria-describedby="12th-label" name="student[12th]" required>
+                    <span class="input-group-text" id="twelve-label">%</span>
+                    <input type="number" class="form-control" id="twelve" min="1" max="100" placeholder="0.00"
+                        aria-label="percentage" aria-describedby="twelve-label" name="twelve" required step="any">
+                    <div class=" invalid-feedback">
+                        Enter 12th Percentage
+                    </div>
                 </div>
             </div>
             <div class=" mb-3">
                 <label class="form-label" for="graduation">Graduation Percentage</label>
                 <div class="input-group">
                     <span class="input-group-text" id="graduation-label">%</span>
-                    <input type="number" class="form-control" id="graduation" min="0" max="100" placeholder="0.00"
-                        aria-label="percentage" aria-describedby="graduation-label" name="student[graduation]" required>
+                    <input type="number" class="form-control" id="graduation" min="1" max="100" placeholder="0.00"
+                        aria-label="percentage" aria-describedby="graduation-label" name="graduation" required
+                        step="any">
+                    <div class=" invalid-feedback">
+                        Enter Graduation Percentage
+                    </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="masters">Masters Percentage</label>
                 <div class="input-group">
                     <span class="input-group-text" id="masters-label">%</span>
-                    <input type="number" class="form-control" id="masters" min="0" max="100" placeholder="0.00"
-                        aria-label="percentage" aria-describedby="masters-label" name="student[masters]" required>
+                    <input type="number" class="form-control" id="masters" min="1" max="100" placeholder="0.00"
+                        aria-label="percentage" aria-describedby="masters-label" name="masters" step="any">
                 </div>
             </div>
             <div class="mb-3">
-                <label for="resume-url" class="form-label">Your Resume URL</label>
+                <label for="image" class="form-label">Upload Resume</label>
                 <div class="input-group">
-                    <input type="url" class="form-control" name="student[resume]" id="resume-url"
-                        aria-describedby="resume-addon3 resume-addon4" required>
-                </div>
-                <div class=" valid-feedback">
-                    Looks good!
+                    <input type="file" class="form-control" id="resume" name="resume"
+                        aria-describedby="inputGroupFileAddon04" aria-label="Upload"
+                        accept="application/pdf,application/doc,application/docx" required>
+                    <div class=" invalid-feedback">
+                        Upload Your Resume
+                    </div>
                 </div>
             </div>
             <div class=" mb-3">
                 <label class="form-label" for="year_of_passing">Year Of Passing </label>
                 <div class="input-group">
-                    <input type="number" class="form-control" maxlength="4" id="year_of_passing" pattern="[1-9][0-9]{3}"
-                        placeholder="2000" aria-label="percentage" aria-describedby="year_of_passing-label"
-                        name="student[year_of_passing]" required>
+                    <input type="number" class="form-control" maxlength="4" min="2020"
+                        max="<%= new Date().getFullYear()+2 %>" id="year_of_passing" pattern="[1-9][0-9]{3}"
+                        placeholder="2020" aria-label="percentage" aria-describedby="year_of_passing-label"
+                        name="year_of_passing" required>
+                    <div class=" invalid-feedback">
+                        Enter Year Of Passing
+                    </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="skills">Skills:</label>
-                <input class="form-control" type="text" id="skills" name="student[skills]" required>
-                <div class=" valid-feedback">
-                    Looks good!
+                <input class="form-control" type="text" id="skills" name="skills" required>
+                <div class=" invalid-feedback">
+                    Enter Skills
                 </div>
             </div>
             <button class="btn btn-outline-success">Register</button>
